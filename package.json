@@ -1,0 +1,45 @@
+{
+  "name": "asap_express",
+  "version": "0.0.0",
+  "main": "index.js",
+  "description": "Funky wrappers for express",
+  "scripts": {
+    "test": "nyc mocha $(find test -name '*.test.js')",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "node .",
+    "check_dep:circular": "madge --circular src",
+    "check_dep:orphan": "madge --orphans src"
+  },
+  "author": "chocof",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cls-hooked": "^4.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.6"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-match": "^1.1.1",
+    "eslint": "^6.7.2",
+    "eslint-config-google": "^0.13.0",
+    "eslint-config-mocha": "0.0.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-mocha": "^6.2.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "madge": "^3.6.0",
+    "mocha": "^7.1.2",
+    "mock-require": "^3.0.3",
+    "nyc": "^13.3.0",
+    "prettier": "^1.19.1",
+    "sinon": "^9.0.2"
+  },
+  "private": true
+}
