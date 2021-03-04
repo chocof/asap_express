@@ -1,22 +1,12 @@
 const express = require('express');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const ClsStore  = require('./lib/cls_store');
+const ClsStore = require('./lib/cls_store');
 const { stringify } = require('./lib/utils');
 const DEFAULT_NAMESPACE = 'ASAP_EXPRESS';
 const DEFAULT_PORT = 8080;
-// const HTTP_METHODS = [
-//   'get',
-//   'head',
-//   'post',
-//   'put',
-//   'delete',
-//   'connect',
-//   'options',
-//   'trace',
-//   'patch'
-// ];
-
+const DEFAULT_ASAP_METHOD_STATUS = 200;
 class AsapExpress {
   constructor(ns = DEFAULT_NAMESPACE, port = DEFAULT_PORT) {
     this._port = port;
@@ -39,6 +29,7 @@ class AsapExpress {
   default() {
     this.use(cors());
     this.use(bodyParser.json());
+    this.use(morgan('tiny'));
   }
 
   /**
@@ -72,8 +63,9 @@ class AsapExpress {
         throw new Error('MethodAlreadyExists');
       }
       res[method] = (...args) => {
-        const data = this._asapMethods[method](...args);
-        return oldSend.call(res, data);
+        const newMethod = this._asapMethods[method];
+        const data = newMethod.fn(...args);
+        return oldSend.status(newMethod.status).call(res, data);
       };
     }
 
@@ -84,8 +76,11 @@ class AsapExpress {
     this._sendOverride = cb;
   }
 
-  asapMethod(method, cb) {
-    this._asapMethods[method] = cb;
+  asapMethod(method, cb, status = DEFAULT_ASAP_METHOD_STATUS) {
+    this._asapMethods[method] = {
+      fn: cb,
+      status
+    };
   }
 
   contextGet(key) {
@@ -98,6 +93,10 @@ class AsapExpress {
 
   getContextTraceId() {
     return this._clsStore.getTraceId();
+  }
+
+  getPort() {
+    return this._port;
   }
 
   _listen(cb) {
