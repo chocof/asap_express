@@ -16,26 +16,31 @@ app.asapSend(data => ({
 }));
 
 // sets the res.error return message
-app.asapMethod('error', error => {
-  if (error instanceof Error) {
+app.asapMethod(
+  'error',
+  error => {
+    if (error instanceof Error) {
+      return {
+        data: {
+          message: error.message
+        },
+        meta: {
+          stack: error.stack
+        }
+      };
+    }
     return {
       data: {
-        message: error.message
+        message: error
       },
       meta: {
-        stack: error.stack
+        undefinedError: true
       }
     };
-  }
-  return {
-    data: {
-      message: error
-    },
-    meta: {
-      undefinedError: true
-    }
-  };
-});
+  },
+  // default status code to be sent when this function is used
+  400
+);
 
 app.get('/', (req, res, next) => {
   return res.send({ id: 'mytestuserid' });

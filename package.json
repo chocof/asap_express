@@ -1,15 +1,12 @@
 {
-  "name": "asap_express",
+  "name": "asap-express",
   "version": "0.0.0",
   "main": "index.js",
   "description": "Funky wrappers for express",
   "scripts": {
-    "test": "nyc mocha $(find test -name '*.test.js')",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "node .",
-    "check_dep:circular": "madge --circular src",
-    "check_dep:orphan": "madge --orphans src"
+    "start": "node ."
   },
   "author": "chocof",
   "license": "MIT",
