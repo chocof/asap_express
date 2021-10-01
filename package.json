@@ -32,7 +32,7 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-mocha": "^6.2.2",
     "eslint-plugin-prettier": "^3.1.1",
-    "madge": "^3.6.0",
+    "madge": "^4.0.1",
     "mocha": "^7.1.2",
     "mock-require": "^3.0.3",
     "nyc": "^13.3.0",

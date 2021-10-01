@@ -23,7 +23,7 @@ Coming up:
 - Before and after handlers for api requests
 - Try-Catch handler for requests
 
-### Install (NOT PUBLISHED YET)
+### Install
 
 ```bash
 npm install asap-express --save
